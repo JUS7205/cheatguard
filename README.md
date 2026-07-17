@@ -158,6 +158,21 @@ integration point rather than shipped half-correct. Everything else — module
 enumeration (Windows), rule matching, scoring, and report generation — is fully
 implemented and exercised by `cargo test`.
 
+## Architecture
+
+```mermaid
+flowchart LR
+  R[Ruleset JSON] --> S[scan]
+  T[Target PID] --> S
+  S --> M[module enumeration]
+  M --> SC[scoring]
+  R --> SC
+  SC --> V{verdict}
+  V -->|0-39| CLEAN[CLEAN]
+  V -->|40-69| SUS[SUSPICIOUS]
+  V -->|70-100| MAL[MALICIOUS]
+```
+
 ## License
 
 MIT OR Apache-2.0
