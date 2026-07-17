@@ -1,5 +1,7 @@
 # cheatguard
 
+[![CI](https://github.com/JUS7205/cheatguard/actions/workflows/ci.yml/badge.svg)](https://github.com/JUS7205/cheatguard/actions/workflows/ci.yml)
+
 > Engine-agnostic anti-cheat **detection primitives** — a *defensive* process-integrity
 > scanner and deterministic heuristic risk scorer. Part of the *runtime defense of
 > autonomous systems* toolbox (the anti-cheat facet).

@@ -49,7 +49,10 @@ impl std::fmt::Display for ScanError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             ScanError::OpenProcessFailed(code) => {
-                write!(f, "OpenProcess failed (pid may not exist or access denied), code={code}")
+                write!(
+                    f,
+                    "OpenProcess failed (pid may not exist or access denied), code={code}"
+                )
             }
             ScanError::EnumFailed(m) => write!(f, "module enumeration failed: {m}"),
             ScanError::ApiError(m) => write!(f, "win32 api error: {m}"),
@@ -145,15 +148,14 @@ pub fn enumerate_modules(pid: u32) -> Result<Vec<ModuleInfo>, ScanError> {
 #[cfg(windows)]
 fn enumerate_modules_windows(pid: u32) -> Result<Vec<ModuleInfo>, ScanError> {
     use windows_sys::Win32::Foundation::{CloseHandle, HANDLE, INVALID_HANDLE_VALUE};
-    use windows_sys::Win32::System::ProcessStatus::{
-        GetModuleFileNameExW, K32EnumProcessModules,
-    };
+    use windows_sys::Win32::System::ProcessStatus::{GetModuleFileNameExW, K32EnumProcessModules};
     use windows_sys::Win32::System::Threading::{
         OpenProcess, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ,
     };
 
     // In windows-sys 0.52, HANDLE/HMODULE are `isize` (a raw handle value), not a pointer.
-    let handle: HANDLE = unsafe { OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, 0, pid) };
+    let handle: HANDLE =
+        unsafe { OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, 0, pid) };
     if handle == INVALID_HANDLE_VALUE || handle == 0 {
         return Err(ScanError::OpenProcessFailed(pid));
     }
@@ -197,9 +199,8 @@ fn enumerate_modules_windows(pid: u32) -> Result<Vec<ModuleInfo>, ScanError> {
         let mut modules = Vec::with_capacity(count);
         for &hmod in &handles {
             let mut buf = [0u16; 260];
-            let len = unsafe {
-                GetModuleFileNameExW(handle, hmod, buf.as_mut_ptr(), buf.len() as u32)
-            };
+            let len =
+                unsafe { GetModuleFileNameExW(handle, hmod, buf.as_mut_ptr(), buf.len() as u32) };
             if len == 0 {
                 continue;
             }

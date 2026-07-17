@@ -126,14 +126,7 @@ mod tests {
             signal: "known_cheat_name".to_string(),
             reason: "known cheat name".to_string(),
         };
-        let r = build_test(
-            1234,
-            vec![m],
-            &[Signal::KnownCheatName],
-            5,
-            &rs,
-            true,
-        );
+        let r = build_test(1234, vec![m], &[Signal::KnownCheatName], 5, &rs, true);
         assert_eq!(r.score, rs.weights.known_cheat_name);
         assert_eq!(r.verdict, "MALICIOUS");
         assert_eq!(r.module_count, 5);

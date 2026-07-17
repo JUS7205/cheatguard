@@ -129,13 +129,16 @@ impl Ruleset {
     /// Load and parse a ruleset from a file path.
     pub fn load_path(path: &Path) -> Result<Ruleset, std::io::Error> {
         let text = std::fs::read_to_string(path)?;
-        Ruleset::from_json(&text).map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))
+        Ruleset::from_json(&text)
+            .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))
     }
 
     /// Does `name` match a known-cheat basename (case-insensitive exact match)?
     pub fn matches_known_cheat(&self, name: &str) -> bool {
         let lower = name.to_lowercase();
-        self.known_cheat_names.iter().any(|k| k.to_lowercase() == lower)
+        self.known_cheat_names
+            .iter()
+            .any(|k| k.to_lowercase() == lower)
     }
 
     /// Does `name` contain any suspicious-naming substring (case-insensitive)?
@@ -216,9 +219,11 @@ mod tests {
 
     #[test]
     fn count_deviation_respects_baseline_and_tolerance() {
-        let mut rs = Ruleset::default();
-        rs.baseline_module_count = Some(100);
-        rs.module_count_tolerance = 10;
+        let rs = Ruleset {
+            baseline_module_count: Some(100),
+            module_count_tolerance: 10,
+            ..Default::default()
+        };
         assert_eq!(rs.count_deviation(100), 0); // on baseline
         assert_eq!(rs.count_deviation(105), 0); // within tolerance
         assert_eq!(rs.count_deviation(120), 10); // 20 over, tolerance 10
@@ -234,7 +239,8 @@ mod tests {
     #[test]
     fn bundled_sample_ruleset_file_parses() {
         // The shipped sample ruleset must both parse and be internally coherent.
-        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("rules/default.rules.json");
+        let path =
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("rules/default.rules.json");
         let rs = Ruleset::load_path(&path).expect("bundled ruleset must parse");
         assert_eq!(rs.version, 1);
         assert!(rs.matches_known_cheat("aimbot.dll"));

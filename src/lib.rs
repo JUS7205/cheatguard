@@ -15,7 +15,9 @@ pub mod report;
 pub mod rules;
 pub mod scoring;
 
-pub use process::{analyze_module, count_anomaly, enumerate_modules, ModuleInfo, ScanError, scan_process};
+pub use process::{
+    analyze_module, count_anomaly, enumerate_modules, scan_process, ModuleInfo, ScanError,
+};
 pub use report::{build, RuleMatch, ScanReport};
 pub use rules::{Ruleset, Weights};
 pub use scoring::{score_signals, verdict_for, Signal, Verdict};

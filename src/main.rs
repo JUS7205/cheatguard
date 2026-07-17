@@ -117,7 +117,8 @@ fn run_scan(args: &[String]) -> ExitCode {
         },
     };
 
-    let (matches, signals, module_count, supported, error) = cheatguard::process::scan_process(pid, &ruleset);
+    let (matches, signals, module_count, supported, error) =
+        cheatguard::process::scan_process(pid, &ruleset);
     let report = cheatguard::report::build(
         pid,
         matches,

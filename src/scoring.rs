@@ -146,7 +146,11 @@ mod tests {
     fn duplicate_signals_deduplicated() {
         let rs = ruleset();
         let s = score_signals(
-            &[Signal::UnsignedModule, Signal::UnsignedModule, Signal::UnsignedModule],
+            &[
+                Signal::UnsignedModule,
+                Signal::UnsignedModule,
+                Signal::UnsignedModule,
+            ],
             &rs,
         );
         assert_eq!(s, rs.weights.unsigned_module);

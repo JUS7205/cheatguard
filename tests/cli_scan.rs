@@ -57,7 +57,10 @@ fn scan_cli_outputs_valid_json_with_schema() {
 
     // matches is an array.
     assert!(value["matches"].is_array(), "matches must be an array");
-    assert!(value["active_signals"].is_array(), "active_signals must be an array");
+    assert!(
+        value["active_signals"].is_array(),
+        "active_signals must be an array"
+    );
 }
 
 #[test]
@@ -68,6 +71,10 @@ fn scan_cli_rejects_missing_pid() {
 
 #[test]
 fn scan_cli_rejects_invalid_pid() {
-    let output = cli().arg("scan").arg("not-a-number").output().expect("launch");
+    let output = cli()
+        .arg("scan")
+        .arg("not-a-number")
+        .output()
+        .expect("launch");
     assert!(!output.status.success(), "scan with bad pid must fail");
 }
