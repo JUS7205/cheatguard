@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "name": "cheatguard-default",
+  "weights": {
+    "unsigned_module": 30,
+    "unexpected_path": 15,
+    "known_cheat_name": 80,
+    "suspicious_name": 25,
+    "count_anomaly": 10
+  },
+  "thresholds": {
+    "suspicious": 25,
+    "malicious": 70
+  },
+  "expected_locations": [
+    "C:\\Windows\\",
+    "C:\\Program Files\\",
+    "C:\\Program Files (x86)\\"
+  ],
+  "suspicious_name_patterns": [
+    "cheat",
+    "hack",
+    "inject",
+    "aimbot",
+    "wallhack",
+    "trainer",
+    "speeder",
+    "bypass"
+  ],
+  "known_cheat_names": [
+    "cheatengine.dll",
+    "csgo-cheat.dll",
+    "xhack.dll",
+    "aimbot.dll",
+    "overwolf_hook.dll"
+  ],
+  "baseline_module_count": null,
+  "module_count_tolerance": 0
+}

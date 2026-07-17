@@ -1,0 +1,29 @@
+[package]
+name = "cheatguard"
+version = "0.1.0"
+edition = "2021"
+description = "Engine-agnostic anti-cheat detection primitives: a defensive process-integrity scanner and heuristic risk scorer. Signatures are data, not code."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/JUS7205/cheatguard"
+readme = "README.md"
+keywords = ["anti-cheat", "security", "detection", "blue-team", "forensics"]
+categories = ["command-line-utilities", "os", "security"]
+
+[[bin]]
+name = "cheatguard"
+path = "src/main.rs"
+
+[lib]
+name = "cheatguard"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.52", features = [
+    "Win32_Foundation",
+    "Win32_System_ProcessStatus",
+    "Win32_System_Threading",
+] }
